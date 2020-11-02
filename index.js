@@ -25,7 +25,7 @@ app.post('/postData', async (req, res) => {
 
         res.sendStatus(C.SUCCESS_STATUS);
     } catch (error) {
-        res.sendStatus(C.ERROR_STATUS);
+        res.sendStatus(C.ERROR_STATUS).send(JSON.stringify(error));
     }
 })
 app.get('/getLogs', async (req, res) => {
@@ -35,7 +35,7 @@ app.get('/getLogs', async (req, res) => {
         res.sendFile(helper.getLogs(when ? when : 'today'), { root: path.join(__dirname)});
     } catch (error) {
         console.log(error);
-        res.sendStatus(C.ERROR_STATUS);
+        res.sendStatus(C.ERROR_STATUS).send(JSON.stringify(error));
     }
 })
 
