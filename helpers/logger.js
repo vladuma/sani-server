@@ -3,7 +3,7 @@ const db = require('./dynamo.js');
 
 function logToFS(data) {
     try {
-        return fs.writeFile( 'logs/datalog.txt', dataToLogString(data), {encoding: 'utf8', flag: 'a'} );
+        return fs.writeFile( 'logs/datalog.txt', dataToLogString(data), {encoding: 'utf8', flag: 'a', mode: 0o666} );
     } catch (error) {
         console.error(error)
         return error;
@@ -11,7 +11,7 @@ function logToFS(data) {
 }
 
 function dataToLogString(data) {
-    return `${new Date().toUTCString()} ===> ${data.split('&').map(splitParam).join('  |  ')}`;
+    return `${new Date().toUTCString()} ===> ${data.split('&').map(splitParam).join('  |  ')} \n`;
 
     function splitParam(param) {
         if (param && param.length) {
