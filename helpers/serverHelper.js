@@ -1,5 +1,5 @@
 function getLogs(when) {
-    return '';
+    return 'logs/datalog.txt';
 }
 
 module.exports =  {
