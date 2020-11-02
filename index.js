@@ -28,7 +28,7 @@ app.post('/postData', async (req, res) => {
         res.sendStatus(C.ERROR_STATUS);
     }
 })
-app.get('/getLogs/:when', async (req, res) => {
+app.get('/getLogs', async (req, res) => {
     try {
         const when = req.params.when;
         
