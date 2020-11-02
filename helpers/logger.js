@@ -1,7 +1,7 @@
 const fs = require('fs').promises;
+const db = require('./dynamo.js');
 
 function logToFS(data) {
-    console.log(data);
     try {
         return fs.writeFile( 'logs/datalog.txt', dataToLogString(data), {encoding: 'utf8', flag: 'a'} );
     } catch (error) {

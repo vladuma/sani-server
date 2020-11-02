@@ -1,3 +1,5 @@
+require('dotenv').config();
+
 const express = require('express');
 const bodyParser = require('body-parser');
 const app = express();
@@ -15,8 +17,6 @@ app.get('/', (req, res) => {
     res.send('Hello World!');
 })
 app.post('/postData', async (req, res) => {
-    console.log(JSON.stringify(req.body));
-    // res.send(`received data with headers: ${JSON.stringify(req.headers)}, url params: ${JSON.stringify(req.query)}, body: ${JSON.stringify(req.body)}, body is typeof ${typeof req.body}`);
     try {
         const data = req.body;
         
