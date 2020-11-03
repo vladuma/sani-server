@@ -1,7 +1,7 @@
 const C = require('./../constants');
 const fs = require('fs').promises;
 const db = require('./dynamo.js');
-const path = getPath(); 
+const path = getPath(true); 
 
 async function logToFS(data) {
     const filename = C.LOG_FILE_NAME;
@@ -13,11 +13,14 @@ async function logToFS(data) {
     .then( r => true)
     .catch( e => e);
 }
-function getPath() {
+function getPath(withRoot) {
     const root = 'sani-server'
     const logFolder = 'logs';
 
-    return `${root}/${logFolder}`;
+    if (withRoot) {
+        return `${root}/${logFolder}`;
+    }
+    return `${logFolder}`;
 }
 
 async function checkPath(path) {
