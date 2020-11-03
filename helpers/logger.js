@@ -2,12 +2,14 @@ const fs = require('fs').promises;
 const db = require('./dynamo.js');
 
 function logToFS(data) {
-    try {
-        return fs.writeFile( 'logs/datalog.txt', dataToLogString(data), {encoding: 'utf8', flag: 'a'} );
-    } catch (error) {
-        console.error(error)
-        return error;
-    }
+    // try {
+        return fs.writeFile( 'logs/datalog.txt', dataToLogString(data), {encoding: 'utf8', flag: 'a'} )
+        .then( r => r)
+        .catch( e => e);
+    // } catch (error) {
+    //     console.error(error)
+    //     return error;
+    // }
 }
 
 function dataToLogString(data) {
@@ -27,7 +29,8 @@ function dataToLogString(data) {
 }
 
 function logToDataBase(data) {
-    return Promise.resolve();
+    return Promise.resolve().then( r => true)
+    .catch( e => e);
 }
 
 module.exports =  {
