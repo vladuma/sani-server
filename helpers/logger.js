@@ -1,9 +1,10 @@
+const C = require('./../constants');
 const fs = require('fs').promises;
 const db = require('./dynamo.js');
 const path = getPath(); 
 
 async function logToFS(data) {
-    const filename = 'datalog.txt';
+    const filename = C.LOG_FILE_NAME;
     const fullPath = `${path}/${filename}`; 
 
     await checkPath(fullPath);
@@ -53,5 +54,6 @@ function logToDataBase(data) {
 
 module.exports =  {
     locally: logToFS,
-    toDataBase: logToDataBase
+    toDataBase: logToDataBase,
+    getPath,
 };

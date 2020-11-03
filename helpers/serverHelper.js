@@ -1,5 +1,8 @@
+const C = require('./../constants');
+const { getPath } = require('./logger');
+
 function getLogs(when) {
-    return 'logs/datalog.txt';
+    return `${getPath()}/${C.LOG_FILE_NAME}`;
 }
 
 module.exports =  {
