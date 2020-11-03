@@ -3,7 +3,7 @@ const db = require('./dynamo.js');
 
 function logToFS(data) {
     try {
-        return fs.writeFile( 'logs/datalog.txt', dataToLogString(data), {encoding: 'utf8', flag: 'a', mode: 0o666} );
+        return fs.writeFile( 'logs/datalog.txt', dataToLogString(data), {encoding: 'utf8', flag: 'a'} );
     } catch (error) {
         console.error(error)
         return error;
