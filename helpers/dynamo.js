@@ -25,6 +25,7 @@ async function updateDeviceLogs(params) {
 }
 
 function sendApiRequest(path, data) {
+    console.log('process.env:', process.env);
     const url = process.env.AWS_API_ENDPOINT + path;
     const options = {
         headers: {
