@@ -1,5 +1,5 @@
 require('dotenv').config();
-
+require('dotenv').config();
 const express = require('express');
 const bodyParser = require('body-parser');
 const app = express();
@@ -22,7 +22,7 @@ app.post('/postData', async (req, res) => {
         
         const loggedLocally = await log.locally(data);
         const loggedToDB = await log.toDataBase(data);
-        
+
         if (!loggedLocally || !loggedToDB) {
             throw new Error(JSON.stringify({loggedLocally, loggedToDB}));
         }
