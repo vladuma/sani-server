@@ -1,5 +1,5 @@
 /node_modules
 
-/logs
+/sani-server
 
 .env

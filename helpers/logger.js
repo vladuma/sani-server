@@ -1,9 +1,9 @@
 const fs = require('fs').promises;
 const db = require('./dynamo.js');
+const path = getPath(); 
 
 async function logToFS(data) {
     const filename = 'datalog.txt';
-    const path = getPath(); 
     const fullPath = `${path}/${filename}`; 
 
     await checkPath(fullPath);
@@ -13,9 +13,10 @@ async function logToFS(data) {
     .catch( e => e);
 }
 function getPath() {
+    const root = 'sani-server'
     const logFolder = 'logs';
 
-    return logFolder;
+    return `${root}/${logFolder}`;
 }
 
 async function checkPath(path) {
@@ -25,7 +26,7 @@ async function checkPath(path) {
         const dirsTocreate = path.split('/');
         dirsTocreate.pop();
 
-        await fs.mkdir(dirsTocreate.join('/'));
+        await fs.mkdir(dirsTocreate.join('/'), { recursive: true });
     }
 }
 
