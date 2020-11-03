@@ -1,15 +1,32 @@
 const fs = require('fs').promises;
 const db = require('./dynamo.js');
 
-function logToFS(data) {
-    // try {
-        return fs.writeFile( 'logs/datalog.txt', dataToLogString(data), {encoding: 'utf8', flag: 'a'} )
-        .then( r => r)
-        .catch( e => e);
-    // } catch (error) {
-    //     console.error(error)
-    //     return error;
-    // }
+async function logToFS(data) {
+    const filename = 'datalog.txt';
+    const path = getPath(); 
+    const fullPath = `${path}/${filename}`; 
+
+    await checkPath(fullPath);
+
+    return fs.writeFile( fullPath, dataToLogString(data), {encoding: 'utf8', flag: 'a'} )
+    .then( r => true)
+    .catch( e => e);
+}
+function getPath() {
+    const logFolder = 'logs';
+
+    return logFolder;
+}
+
+async function checkPath(path) {
+    try {
+        await fs.access(path);
+    } catch (error) {
+        const dirsTocreate = path.split('/');
+        dirsTocreate.pop();
+
+        await fs.mkdir(dirsTocreate.join('/'));
+    }
 }
 
 function dataToLogString(data) {
