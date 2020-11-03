@@ -23,7 +23,11 @@ app.post('/postData', async (req, res) => {
         const loggedLocally = await log.locally(data);
         const loggedToDB = await log.toDataBase(data);
 
-        res.status(C.SUCCESS_STATUS).send(JSON.stringify({loggedLocally, loggedToDB}));
+        if (!loggedLocally && !loggedToDB) {
+            throw new Error(JSON.stringify({loggedLocally, loggedToDB}));
+        }
+        
+        res.status(C.SUCCESS_STATUS);
     } catch (error) {
         res.status(C.ERROR_STATUS).send(JSON.stringify(error));
     }
