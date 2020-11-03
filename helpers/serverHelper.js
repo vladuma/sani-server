@@ -6,6 +6,12 @@ function getLogs(when) {
     return `${getPath()}/${C.LOG_FILE_NAME}`;
 }
 
+function getConfig() {
+    const configPath = 'sani-server/config/aws.txt';
+
+    return fs.readFile(configPath);
+}
+
 function getDataMap() {
     const dataMapPath = 'sani-server/constants/uploadDataMap.txt';
 
@@ -44,5 +50,6 @@ function getDataTypesMap() {
 
 module.exports =  {
     getLogs,
+    getConfig,
     dataToObject,
 }

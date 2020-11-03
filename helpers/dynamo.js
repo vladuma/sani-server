@@ -24,13 +24,15 @@ async function updateDeviceLogs(params) {
     }
 }
 
-function sendApiRequest(path, data) {
-    console.log('process.env:', process.env);
-    const url = process.env.AWS_API_ENDPOINT + path;
+async function sendApiRequest(path, data) {
+    const { getConfig } = require('./serverHelper');
+    const config = JSON.parse(await getConfig());
+    console.log('config', config);
+    const url = config.AWS_API_ENDPOINT + path;
     const options = {
         headers: {
             'content-type': 'application/json',
-            'Authorization': process.env.AWS_API_KEY
+            'Authorization': config.AWS_API_KEY
         }
     }
     return axios.post(url, data, options).catch(error => {throw new Error(error)});
