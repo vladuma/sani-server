@@ -29,6 +29,7 @@ app.post('/postData', async (req, res) => {
         
         res.sendStatus(C.SUCCESS_STATUS);
     } catch (error) {
+        console.error(error);
         res.status(C.ERROR_STATUS).send(JSON.stringify(error));
     }
 })
