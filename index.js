@@ -18,6 +18,8 @@ app.post('/postData', async (req, res) => {
     try {
         const data = req.body;
         
+        if (!data) throw new Error(new Date().toUTCString() + ' No data on request. Request', JSON.stringify(data));
+
         const loggedLocally = await log.locally(data);
         const loggedToDB = await log.toDataBase(data);
 
