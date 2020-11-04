@@ -17,19 +17,19 @@ app.get('/', (req, res) => {
 app.post('/postData', async (req, res) => {
     try {
         const data = req.body;
-        
-        if (!data) throw new Error(new Date().toUTCString() + ' No data on request. Request', JSON.stringify(data));
+
+        if (!data) throw new Error(new Date().toUTCString() + ' No data on request. Request:', JSON.stringify(data));
 
         const loggedLocally = await log.locally(data);
         const loggedToDB = await log.toDataBase(data);
 
         if (!loggedLocally || !loggedToDB) {
-            throw new Error(JSON.stringify({loggedLocally, loggedToDB}));
+            throw new Error(new Date().toUTCString() + ' Error logging data:', JSON.stringify({loggedLocally, loggedToDB}));
         }
         
         res.sendStatus(C.SUCCESS_STATUS);
     } catch (error) {
-        console.error(error);
+        console.error(new Date().toUTCString() + ' Error posting data', error);
         res.status(C.ERROR_STATUS).send(JSON.stringify(error));
     }
 })
@@ -39,7 +39,7 @@ app.get('/getLogs', async (req, res) => {
         
         res.sendFile(helper.getLogs(when ? when : 'today'), { root: path.join(__dirname)});
     } catch (error) {
-        console.log(error);
+        console.log(new Date().toUTCString() + ' Error getting logs', error);
         res.status(C.ERROR_STATUS).send(JSON.stringify(error));
     }
 })

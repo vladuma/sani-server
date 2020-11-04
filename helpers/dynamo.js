@@ -2,9 +2,9 @@ const axios = require('axios');
 
 function getDevice(icc) {
     try {
-        console.log(icc);
+        console.log(new Date().toUTCString() + ' get device icc: ', icc);
         return sendApiRequest('/getDeviceByIcc', { icc }).then(res => {
-            console.log('getDeviceByIcc', res.data);
+            console.log(new Date().toUTCString() + ' getDeviceByIcc res.data: ', res.data);
             return res.data.data.body.items.length > 0 ? res.data.data.body.items[0] : null
         });
     } catch (error) {
@@ -16,7 +16,7 @@ async function updateDeviceLogs(params) {
         icc: params.icc,
         data: params
     };
-    console.log('updateDeviceLogs', data);
+    console.log(new Date().toUTCString() + ' updateDeviceLogs request data: ', data);
     try {
         return sendApiRequest('/updateDeviceLogs', data).catch(error => {throw new Error(error)});
     } catch (error) {
@@ -27,7 +27,7 @@ async function updateDeviceLogs(params) {
 async function sendApiRequest(path, data) {
     const { getConfig } = require('./serverHelper');
     const config = JSON.parse(await getConfig());
-    console.log('config', config);
+    console.log(new Date().toUTCString() + ' AWS config:', config);
     const url = config.AWS_API_ENDPOINT + path;
     const options = {
         headers: {

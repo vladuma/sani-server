@@ -54,19 +54,20 @@ async function logToDataBase(d) {
     const { dataToObject } = require('./serverHelper');
     const data = await dataToObject(d);
     
-    console.log('data',data)
+    console.log(new Date().toUTCString() + ' logToDataBase transformedData', data)
     if (data && data.icc) {
         try {
             const device = await db.getDevice(data.icc);
-            console.log('device', device);
+            console.log(new Date().toUTCString() + ' getDevice result in logToDataBase:', device);
             if (!device) {
                 return Promise.reject('Device not found');
             }
 
-            const comands = device.comands;
-            if (comands && comands.length) {
-                // TODO: commands business logic
-            }
+            // const comands = device.comands;
+            // if (comands && comands.length) {
+            //     // TODO: commands business logic
+            // }
+            // TODO: device data operations business logic 
 
             return db.updateDeviceLogs(data);
         } catch (error) {
