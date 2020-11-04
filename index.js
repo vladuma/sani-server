@@ -6,6 +6,7 @@ const port = 8080;
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.text());
+app.use(bodyParser.json());
 
 const C = require('./constants.js');
 const helper = require('./helpers/serverHelper.js');
@@ -16,11 +17,13 @@ app.get('/', (req, res) => {
 })
 app.post('/postData', async (req, res) => {
     try {
-        const data = req.body;
+        let data = req.body;
         
         console.log(new Date().toUTCString() + ' inside postData, received: ', data);
 
         if (!data) throw new Error(new Date().toUTCString() + ' No data on request. Request:', JSON.stringify(data));
+        console.log(typeof data);
+        if (typeof data === 'object') data = helper.objectToString(data);
 
         const loggedLocally = await log.locally(data);
         const loggedToDB = await log.toDataBase(data);

@@ -48,8 +48,13 @@ function getDataTypesMap() {
     return fs.readFile(dataMapTypePath);
 }
 
+function objectToString(data) {
+    return Object.keys(data).map(key => `${key}=${data[key]}`).join('&');
+}
+
 module.exports =  {
     getLogs,
     getConfig,
     dataToObject,
+    objectToString,
 }
