@@ -17,6 +17,8 @@ app.get('/', (req, res) => {
 app.post('/postData', async (req, res) => {
     try {
         const data = req.body;
+        
+        console.log(new Date().toUTCString() + ' inside postData, received: ', data);
 
         if (!data) throw new Error(new Date().toUTCString() + ' No data on request. Request:', JSON.stringify(data));
 
